@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Yijia Ma | Data Science and Statistical Modeling for Fear Memory</title>
+
+  <style>
+    :root {
+      --text: #222;
+      --muted: #666;
+      --light: #f7f8fa;
+      --border: #e5e7eb;
+      --accent: #3454d1;
+      --accent-dark: #243b9f;
+      --max-width: 980px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #ffffff;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 36px 22px 60px;
+    }
+
+    header {
+      text-align: center;
+      padding: 38px 0 24px;
+    }
+
+    h1 {
+      font-size: 2.35rem;
+      line-height: 1.18;
+      margin: 0 0 14px;
+      font-weight: 750;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .authors {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    .my-name {
+      font-weight: 800;
+      color: var(--accent-dark);
+    }
+
+    .affiliations {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 8px;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 22px 0 10px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      border: 1px solid var(--accent);
+      transition: 0.18s ease;
+    }
+
+    .button:hover {
+      background: var(--accent-dark);
+      text-decoration: none;
+    }
+
+    .button.secondary {
+      background: white;
+      color: var(--accent);
+    }
+
+    .button.secondary:hover {
+      background: var(--light);
+    }
+
+    section {
+      margin-top: 46px;
+    }
+
+    h2 {
+      font-size: 1.55rem;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    h3 {
+      margin-top: 24px;
+      font-size: 1.15rem;
+    }
+
+    .hero-box {
+      background: linear-gradient(180deg, #f7f8ff, #ffffff);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 26px;
+      text-align: left;
+    }
+
+    .hero-box strong {
+      color: var(--accent-dark);
+    }
+
+    .teaser {
+      margin: 28px auto 10px;
+      text-align: center;
+    }
+
+    .teaser img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .caption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.035);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .highlight-box {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-top: 18px;
+    }
+
+    .role-list {
+      margin-top: 14px;
+      padding-left: 20px;
+    }
+
+    .role-list li {
+      margin-bottom: 8px;
+    }
+
+    .figure-row {
+      margin-top: 18px;
+    }
+
+    .figure-row img {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: white;
+    }
+
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .grid,
+      .grid.two {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 24px 16px 50px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <header>
+      <h1>Data Science and Statistical Modeling for Long-Term Fear Memory</h1>
+
+      <div class="subtitle">
+        Multimodal EEG-fMRI analysis, transformer decoding, and statistical inference
+      </div>
+
+      <div class="authors">
+        Joshua A. Brown<sup>†</sup>,
+        <span class="my-name">Yijia Ma<sup>†</sup></span>,
+        Yifan Wang,
+        John J. Massa,
+        Peter Kuan-Hao Cheng,
+        Chaowen Chen,
+        Mingzhou Ding,
+        Norman B. Schmidt,
+        Mohammed R. Milad,
+        Jair C. Soares,
+        Raymond J. Dolan,
+        Chenyu You<sup>*</sup>,
+        Wen Li<sup>*</sup>
+      </div>
+
+      <div class="affiliations">
+        <sup>†</sup>Co-first authors &nbsp;&nbsp;
+        <sup>*</sup>Corresponding authors<br />
+        Manuscript: <em>Sensory cortical disinhibition underlies long-term fear memory in humans</em>
+      </div>
+
+      <div class="button-row">
+        <a class="button" href="#" target="_blank">Paper</a>
+        <a class="button secondary" href="https://github.com/LiLabFSU/" target="_blank">Code</a>
+        <a class="button secondary" href="#my-role">My Role</a>
+        <a class="button secondary" href="#citation">Citation</a>
+      </div>
+
+      <p class="note">
+        Manuscript submitted. Source data and analysis code will be released upon acceptance.
+      </p>
+
+      <div class="hero-box">
+        <p>
+          This project demonstrates my role as a <strong>data scientist and statistician</strong>
+          in a high-dimensional neuroscience study. I contributed to the quantitative analysis
+          pipeline integrating simultaneous EEG-fMRI, alpha-band oscillatory features,
+          transformer-based neural decoding, cross-validation, repeated-measures statistical
+          modeling, permutation-based inference, and reproducible result generation.
+        </p>
+      </div>
+    </header>
+
+    <div class="teaser">
+      <img src="assets/fig1_teaser.png" alt="Experimental paradigm and analytical design" />
+      <div class="caption">
+        Overview of the experimental design and data science workflow: HD α-tACS, simultaneous EEG-fMRI,
+        longitudinal memory assessment, and transformer-based neural decoding.
+      </div>
+    </div>
+
+    <section id="my-role">
+      <h2>My Role: Data Scientist and Statistician</h2>
+
+      <p>
+        As a co-first author, my contribution centered on the quantitative and computational
+        components of the project. The study required transforming complex multimodal neural
+        recordings into interpretable evidence about fear-memory formation, consolidation,
+        and long-term retention.
+      </p>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Data Science Contribution</h3>
+          <p>
+            Built and refined analysis workflows for high-dimensional EEG-fMRI data,
+            including neural feature extraction, decoding-ready data matrices,
+            quality-control checks, and reproducible result generation.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Statistical Contribution</h3>
+          <p>
+            Designed and implemented statistical inference procedures, including repeated-measures
+            ANOVA, follow-up tests, effect-size reporting, regression modeling, and
+            multiple-comparison correction.
+          </p>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <h3>Key technical responsibilities</h3>
+        <ul class="role-list">
+          <li>
+            Developed participant-level EEG decoding workflows to classify CS+ versus CS−
+            responses across time-resolved EEG bins.
+          </li>
+          <li>
+            Supported transformer-based neural decoding analyses for EEG and fMRI fear-memory traces.
+          </li>
+          <li>
+            Constructed decoding accuracy outcomes indexing memory-trace changes from pre-conditioning
+            to 15 min, 24 h, and 7 days.
+          </li>
+          <li>
+            Applied cross-validation strategies to estimate model performance while reducing
+            overfitting risk in a small-sample neuroscience setting.
+          </li>
+          <li>
+            Conducted statistical comparisons between active α-tACS and sham groups to test
+            whether stimulation disrupted fear-memory traces.
+          </li>
+          <li>
+            Implemented time-resolved statistical testing and permutation-based correction for
+            EEG decoding and topographical analyses.
+          </li>
+          <li>
+            Modeled the relationship between alpha-band desynchronization and long-term decoding
+            strength using regression with baseline decoding as a covariate.
+          </li>
+          <li>
+            Helped translate complex multimodal results into interpretable figures, statistical
+            summaries, and manuscript-ready reporting.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="overview">
+      <h2>Scientific Overview</h2>
+
+      <p>
+        The project investigates how transient threat experiences become persistent long-term
+        fear memories. The central hypothesis is that sensory cortical disinhibition supports
+        the consolidation and retention of fear memory in humans.
+      </p>
+
+      <p>
+        The study combines high-definition alpha-frequency transcranial alternating-current
+        stimulation over early visual cortex with simultaneous EEG-fMRI and transformer-based
+        neural decoding. Fear-memory traces were tracked at approximately 15 minutes,
+        24 hours, and 7 days after conditioning.
+      </p>
+    </section>
+
+    <section id="pipeline">
+      <h2>Data Science Pipeline</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>1. Multimodal Data</h3>
+          <p>
+            Simultaneous EEG-fMRI on Day 1 and high-density EEG on follow-up sessions.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>2. Feature Engineering</h3>
+          <p>
+            Alpha-band ERD, time-resolved EEG bins, ROI-level fMRI beta estimates, and
+            decoding-ready neural features.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>3. Neural Decoding</h3>
+          <p>
+            Transformer encoders classified CS+ versus CS− responses to quantify neural
+            fear-memory traces.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>4. Cross-Validation</h3>
+          <p>
+            Fold-based validation was used to estimate participant-level and ROI-level decoding
+            performance.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>5. Statistical Inference</h3>
+          <p>
+            Repeated-measures ANOVA, follow-up t-tests, regression modeling, and effect-size
+            reporting were used for hypothesis testing.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>6. Multiple Testing Control</h3>
+          <p>
+            Time-resolved EEG analyses used correction procedures to control false positives
+            across temporal bins.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="methods">
+      <h2>Methods Highlight</h2>
+
+      <h3>Transformer-Based Decoding</h3>
+      <p>
+        EEG and fMRI responses were used to train compact transformer encoders to classify
+        conditioned threat cues from safety cues. Increases in decoding accuracy from
+        pre-conditioning to later sessions indexed neural memory traces.
+      </p>
+
+      <h3>Alpha Desynchronization Analysis</h3>
+      <p>
+        Occipital alpha event-related desynchronization was analyzed as a neural marker of
+        visual cortical disinhibition. The study tested whether alpha desynchronization predicted
+        later memory-trace strength.
+      </p>
+
+      <h3>Statistical Modeling</h3>
+      <p>
+        Repeated-measures ANOVA tested Phase, Group, and interaction effects. Follow-up
+        tests characterized within-group memory-trace changes, while regression models linked
+        alpha desynchronization to long-term decoding strength.
+      </p>
+    </section>
+
+    <section id="results">
+      <h2>Key Results</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Target Engagement</h3>
+          <p>
+            Active α-tACS reduced visual cortical activity, validating stimulation effects in V1/V2.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Fear Acquisition</h3>
+          <p>
+            Skin conductance responses confirmed successful conditioning, without evidence
+            that α-tACS impaired initial learning.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Alpha Modulation</h3>
+          <p>
+            α-tACS blocked conditioning-potentiated occipital alpha desynchronization.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>EEG Memory Traces</h3>
+          <p>
+            Transformer decoding revealed time-resolved fear-memory traces beginning at early
+            sensory processing stages.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>fMRI Memory Traces</h3>
+          <p>
+            Decoding identified sensory-limbic memory representations in visual cortex,
+            anterior insula, and amygdala.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Long-Term Prediction</h3>
+          <p>
+            Alpha desynchronization predicted memory-trace strength at 24 hours and 7 days.
+          </p>
+        </div>
+      </div>
+
+      <div class="figure-row">
+        <img src="assets/fig2_validation.png" alt="Experimental validation results" />
+        <div class="caption">
+          Experimental validation: visual cortical inhibition, fear conditioning, and alpha-band modulation.
+        </div>
+      </div>
+
+      <div class="figure-row">
+        <img src="assets/fig3_decoding.png" alt="Transformer decoding results" />
+        <div class="caption">
+          Transformer decoding of EEG-fMRI responses reveals fear-memory traces and their disruption by α-tACS.
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills Demonstrated</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Statistical Modeling</h3>
+          <p>
+            Repeated-measures ANOVA, mixed experimental designs, effect sizes, post-hoc testing,
+            and regression modeling.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Machine Learning</h3>
+          <p>
+            Transformer-based classification, cross-validation, neural decoding, model evaluation,
+            and high-dimensional feature learning.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Neuroimaging Analytics</h3>
+          <p>
+            EEG-fMRI integration, alpha-band analysis, ROI-level fMRI beta extraction, and
+            longitudinal neural representation analysis.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Inference and Validation</h3>
+          <p>
+            Permutation testing, multiple-comparison correction, robustness checks, and
+            interpretation of interaction effects.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Scientific Computing</h3>
+          <p>
+            Python, MATLAB, reproducible pipelines, data cleaning, feature construction,
+            statistical reporting, and visualization.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Translational Data Science</h3>
+          <p>
+            Turning complex neural data into clinically meaningful evidence about fear,
+            anxiety, and trauma-related mechanisms.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="availability">
+      <h2>Data and Code Availability</h2>
+
+      <p>
+        Source data and analysis code will be deposited in the laboratory GitHub repository
+        upon acceptance of the manuscript.
+      </p>
+
+      <p>
+        Repository:
+        <a href="https://github.com/LiLabFSU/" target="_blank">
+          https://github.com/LiLabFSU/
+        </a>
+      </p>
+    </section>
+
+    <section id="citation">
+      <h2>Citation</h2>
+
+      <p>
+        Citation information will be updated after publication.
+      </p>
+
+      <pre><code>@article{brown_ma_2026_sensory_disinhibition,
+  title   = {Sensory cortical disinhibition underlies long-term fear memory in humans},
+  author  = {Brown, Joshua A. and Ma, Yijia and Wang, Yifan and Massa, John J. and Cheng, Peter Kuan-Hao and Chen, Chaowen and Ding, Mingzhou and Schmidt, Norman B. and Milad, Mohammed R. and Soares, Jair C. and Dolan, Raymond J. and You, Chenyu and Li, Wen},
+  journal = {Manuscript submitted},
+  year    = {2026}
+}</code></pre>
+    </section>
+
+    <footer>
+      © 2026 Yijia Ma. Project page highlighting data science, statistical modeling, and neural decoding contributions.
+    </footer>
+
+  </div>
+</body>
+</html>
